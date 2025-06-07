@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การเดินทางสู่แกนโลก: แผ่นดินไหวอธิบาย</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ตั้งค่าพื้นฐานสำหรับ body */
+        body {
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* สไตล์ส่วนของเนื้อหาหลัก */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* สไตล์หัวข้อหลัก */
+        .section h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* สไตล์ข้อความย่อหน้า */
+        .section p {
+            font-size: 1.1em;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px; /* ระยะห่างด้านล่างสำหรับย่อหน้าเดี่ยวในแต่ละส่วน */
+        }
+
+        /* ภาพประกอบสไตล์มินิมอล */
+        .minimal-illustration {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #3498db;
+            animation: illustration-bounce 2s infinite;
+        }
+
+        /* Keyframes สำหรับ animation ของ Minimal Illustration (เด้งขึ้นลงเท่านั้น) */
+        @keyframes illustration-bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* ส่วนพื้นดิน */
+        #surface {
+            background-color: #edfff4;
+        }
+        #surface .minimal-illustration {
+            background-color: #27ae60;
+        }
+
+        /* ส่วนใต้ทะเล */
+        #undersea {
+            background-color: #e0f2f7;
+        }
+        #undersea .minimal-illustration {
+            background-color: #3498db;
+        }
+
+        /* ส่วนแกนโลก */
+        #core {
+            background-color: #f7e0e0;
+        }
+        #core .minimal-illustration {
+            background-color: #e74c3c;
+        }
+
+        /* ปุ่มนำทาง */
+        .nav-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background-color: #3a69aa;
+            font-family: 'Prompt', sans-serif;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: 400;
+        }
+
+        .nav-button:hover {
+            background-color: #2c3e50;
+            transform: translateY(-3px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            
+            font-size: 0.85em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            white-space: nowrap;
+
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 8px 18px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: #333;
+            border: none;
+            
+            z-index: 1001;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out, color 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            pointer-events: auto;
+            animation: scroll-indicator-bounce 2s infinite;
+        }
+
+        /* Keyframes สำหรับ animation ของ Scroll Indicator (เด้งขึ้นลงและคงการจัดกึ่งกลาง) */
+        @keyframes scroll-indicator-bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-8px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-4px) translateX(-50%);
+            }
+        }
+
+        /* การตอบสนองต่อหน้าจอเล็ก */
+        @media (max-width: 768px) {
+            .section {
+                padding: 20px 10px;
+            }
+
+            .section h1 {
+                font-size: 1.8em;
+            }
+            .section p {
+                font-size: 0.95em;
+                padding: 10px;
+            }
+            .minimal-illustration {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                top: 10px;
+                right: 10px;
+                gap: 5px;
+            }
+            .nav-button {
+                padding: 8px 12px;
+                font-size: 0.85em;
+                width: 100px;
+                text-align: center;
+            }
+
+            .scroll-indicator {
+                font-size: 0.75em;
+                bottom: 15px;
+                padding: 6px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section h1 {
+                font-size: 1.5em;
+            }
+            .section p {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+            .minimal-illustration {
+                width: 100px;
+                height: 100px;
+                font-size: 2em;
+            }
+            .nav-buttons {
+                top: 5px;
+                right: 5px;
+            }
+            .nav-button {
+                padding: 6px 10px;
+                font-size: 0.8em;
+                width: 90px;
+            }
+            .scroll-indicator {
+                font-size: 0.7em;
+                bottom: 10px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="scrollToSection('surface')">พื้นโลก</button>
+        <button class="nav-button" onclick="scrollToSection('undersea')">ใต้ทะเล</button>
+        <button class="nav-button" onclick="scrollToSection('core')">แกนโลก</button>
+    </div>
+
+    <section id="surface" class="section" data-scroll-indicator-color="#2c3e50">
+        <div class="minimal-illustration">🌍</div> <h1>การเกิดแผ่นดินไหว: บนพื้นโลก</h1>
+        <p>แผ่นดินไหวที่เราสัมผัสได้ส่วนใหญ่เกิดขึ้นในชั้นเปลือกโลก ซึ่งเป็นชั้นนอกสุดที่เป็นของแข็งของดาวเคราะห์ของเรา เปลือกโลกประกอบด้วยแผ่นเปลือกโลกขนาดใหญ่หลายแผ่นที่เคลื่อนที่อย่างช้าๆ ตลอดเวลา การเคลื่อนที่เหล่านี้ ไม่ว่าจะเป็นการชนกัน การแยกตัวออกจากกัน หรือการเสียดสีกันตามแนวรอยเลื่อน (faults) จะทำให้เกิดการสะสมความเค้น (stress) ในหิน
+        เมื่อความเค้นสะสมถึงจุดวิกฤตที่หินไม่สามารถทนได้อีกต่อไป หินก็จะแตกหักและเลื่อนตัวอย่างฉับพลัน ทำให้เกิดการปลดปล่อยพลังงานมหาศาลออกมาในรูปของคลื่นไหวสะเทือน <br>(seismic waves) คลื่นเหล่านี้จะเดินทางผ่านพื้นผิวโลกและทำให้เกิดการสั่นสะเทือนที่เราเรียกกันว่า "แผ่นดินไหว" นั่นเอง ผลกระทบที่พบบ่อยได้แก่ อาคารถล่ม ถนนเสียหาย และดินถล่ม การทำความเข้าใจเกี่ยวกับรอยเลื่อนที่สำคัญและพฤติกรรมการเคลื่อนที่ของมันจึงมีความสำคัญอย่างยิ่งต่อการลดความเสี่ยงและความเสียหาย</br></p>
+    </section>
+
+    <section id="undersea" class="section" data-scroll-indicator-color="#2c3e50">
+        <div class="minimal-illustration">🌊</div> <h1>การเกิดแผ่นดินไหว: ใต้พื้นทะเล</h1>
+        <p>แผ่นดินไหวใต้พื้นทะเลเกิดขึ้นเมื่อแผ่นเปลือกโลกใต้สมุทรมีการเคลื่อนที่ โดยเฉพาะอย่างยิ่งบริเวณที่เรียกว่า <b>เขตมุดตัวของแผ่นเปลือกโลก (subduction zones)</b> ซึ่งแผ่นเปลือกโลกมหาสมุทรหนึ่งมุดตัวลงไปใต้แผ่นเปลือกโลกอีกแผ่นหนึ่ง การเสียดสีและการปลดปล่อยพลังงานในบริเวณนี้สามารถทำให้เกิดแผ่นดินไหวขนาดใหญ่ได้
+            <br>สิ่งที่น่ากังวลที่สุดจากแผ่นดินไหวใต้ทะเลขนาดใหญ่คือการก่อให้เกิด <b>คลื่นสึนามิ (tsunami)</b> ซึ่งเป็นคลื่นยักษ์ที่มีพลังทำลายล้างสูงมาก เมื่อแผ่นเปลือกโลกใต้ทะเลเลื่อนตัวอย่างรวดเร็ว จะเกิดการเคลื่อนที่ของมวลน้ำทะเลขนาดใหญ่ ทำให้เกิดคลื่นที่เดินทางข้ามมหาสมุทรด้วยความเร็วสูง และเมื่อเข้าใกล้ชายฝั่ง คลื่นจะยกตัวสูงขึ้นและสร้างความเสียหายอย่างรุนแรงแก่พื้นที่ชายฝั่ง การศึกษาแผ่นดินไหวใต้ทะเลจึงเป็นสิ่งสำคัญในการพยากรณ์และเตือนภัยสึนามิ เพื่อช่วยชีวิตและลดความเสียหาย</br></p>
+    </section>
+
+    <section id="core" class="section" data-scroll-indicator-color="#2c3e50">
+        <div class="minimal-illustration">🔥</div> <h1>การเกิดแผ่นดินไหว: ผลกระทบต่อแกนโลก (และชั้นลึกเข้าไป)</h1>
+        <p>แม้ว่าแผ่นดินไหวส่วนใหญ่จะมีจุดกำเนิดในชั้นเปลือกโลกและเนื้อโลกส่วนบน แต่คลื่นไหวสะเทือนที่เกิดจากแผ่นดินไหวจะเดินทางผ่านชั้นต่างๆ ของโลกทั้งหมด รวมถึงชั้นเนื้อโลก (mantle) และแกนโลก (core) ด้วย การศึกษาคลื่นไหวสะเทือนเหล่านี้มีความสำคัญอย่างยิ่งต่อนักวิทยาศาสตร์ในการทำความเข้าใจโครงสร้างองค์ประกอบภายในของโลก ซึ่งเป็นสิ่งที่มนุษย์ไม่สามารถเข้าถึงได้โดยตรง
+        <br>คลื่นไหวสะเทือนมีสองประเภทหลักคือ <b>คลื่น P (primary waves)</b> และ <b>คลื่น S (secondary waves)</b> คลื่น P สามารถเดินทางผ่านทั้งของแข็งและของเหลวได้ ในขณะที่คลื่น S ไม่สามารถเดินทางผ่านของเหลวได้ การที่นักวิทยาศาสตร์ตรวจพบว่าคลื่น S หายไปในบางพื้นที่หลังจากแผ่นดินไหวขนาดใหญ่ ทำให้ทราบว่าแกนโลกชั้นนอก (outer core) นั้นมีสถานะเป็นของเหลว ซึ่งเป็นข้อมูลสำคัญในการยืนยันแบบจำลองโครงสร้างภายในโลก และช่วยให้เราเข้าใจปรากฏการณ์ทางธรณีวิทยาที่ซับซ้อนอื่นๆ เช่น สนามแม่เหล็กโลก</br></p>
+    </section>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        เลื่อนลงเพื่อสำรวจเลย! &#8595;
+    </div>
+
+    <script>
+        // ฟังก์ชันสำหรับเลื่อนไปยังส่วนที่ต้องการอย่างนุ่มนวล
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // รับองค์ประกอบ scroll indicator
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        // รับทุกส่วนของเนื้อหาและย่อหน้า (ตอนนี้เหลือย่อหน้าเดียวในแต่ละ section)
+        const sections = document.querySelectorAll('.section');
+        const paragraphs = document.querySelectorAll('.section p');
+
+        // กำหนดค่าเริ่มต้นของ Intersection Observer options สำหรับเปลี่ยนสี
+        const sectionObserverOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        // สร้าง Intersection Observer สำหรับเปลี่ยนสีของ scroll indicator
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const indicatorColor = entry.target.dataset.scrollIndicatorColor;
+                    if (indicatorColor) {
+                        scrollIndicator.style.color = indicatorColor;
+                    }
+                }
+            });
+        }, sectionObserverOptions);
+
+        // สังเกตการณ์ทุกส่วนเพื่อเปลี่ยนสี
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Listener สำหรับ scroll event เพื่อควบคุมการแสดง/ซ่อนของ scroll indicator
+        window.addEventListener('scroll', () => {
+            let isOverlappingAnyParagraph = false;
+            paragraphs.forEach(p => {
+                const indicatorRect = scrollIndicator.getBoundingClientRect();
+                const pRect = p.getBoundingClientRect();
+
+                const overlapsVertically = (pRect.top < indicatorRect.bottom && pRect.bottom > indicatorRect.top);
+                const overlapsHorizontally = (pRect.left < indicatorRect.right && pRect.right > indicatorRect.left);
+
+                if (overlapsVertically && overlapsHorizontally) {
+                    if (pRect.top < window.innerHeight && pRect.bottom > 0) {
+                        isOverlappingAnyParagraph = true;
+                    }
+                }
+            });
+
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            const indicatorRect = scrollIndicator.getBoundingClientRect();
+
+            const isIndicatorInViewport = (indicatorRect.top >= 0 && indicatorRect.bottom <= viewportHeight);
+
+            if (isOverlappingAnyParagraph || !isIndicatorInViewport) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.pointerEvents = 'auto';
+            }
+        });
+
+        // กำหนดสีเริ่มต้นเมื่อโหลดหน้าและตรวจสอบการแสดง/ซ่อน
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstSection = document.querySelector('.section');
+            if (firstSection) {
+                scrollIndicator.style.color = firstSection.dataset.scrollIndicatorColor;
+            }
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+
+</body>
+</html>
